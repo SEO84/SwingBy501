@@ -16,4 +16,8 @@ public class Wjh0324DTO {
 		this.loc = loc;
 	}
 	
+	public Object[] getRow() {
+		return new Object[] { empno, ename, deptno, dname, loc };
+	}
+	
 }
