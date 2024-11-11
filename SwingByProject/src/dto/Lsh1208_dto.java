@@ -29,4 +29,8 @@ public class Lsh1208_dto {
 	public Lsh1208_dto() {
 
 	}
+	
+	public Object[] getRow() {
+		return new Object[] { job, sal};
+	}
 }
