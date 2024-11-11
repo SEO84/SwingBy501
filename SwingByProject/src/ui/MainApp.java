@@ -34,7 +34,12 @@ public class MainApp extends JFrame {
             MainApp.this.repaint();
 		}));
 		
-		buttons.add(button("서현우", null));
+		buttons.add(button("서현우", l -> {
+			if (current != null) MainApp.this.remove(current);
+			MainApp.this.add(current = new shw1013Panel(), BorderLayout.CENTER);
+            MainApp.this.revalidate();
+            MainApp.this.repaint();
+		}));
 		buttons.add(button("이상화", null));
 		buttons.add(button("김재한", l -> {
 			if (current != null) MainApp.this.remove(current);
