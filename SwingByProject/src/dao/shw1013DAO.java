@@ -1,34 +1,31 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import dto.shw1013DTO;
 
 public class shw1013DAO {
+    String driver = "oracle.jdbc.driver.OracleDriver";
     String url = "jdbc:oracle:thin:@localhost:1521:xe";
     String userid = "scott";
     String passwd = "tiger";
 
-    public ArrayList<shw1013DTO> select() {
-        ArrayList<shw1013DTO> list = new ArrayList<>();
-
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
+    public shw1013DAO() {
         try {
-            con = DriverManager.getConnection(url, userid, passwd);
-            String query = "SELECT empno, ename, job, sal FROM emp " +
-                           "WHERE sal < ALL (SELECT sal FROM emp WHERE job = 'MANAGER') " +
-                           "AND job <> 'MANAGER' ORDER BY sal DESC";
-            pstmt = con.prepareStatement(query);
-            rs = pstmt.executeQuery();
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<shw1013DTO> get() {
+        List<shw1013DTO> list = new ArrayList<>();
+        try (Connection con = DriverManager.getConnection(url, userid, passwd);
+             PreparedStatement pstmt = con.prepareStatement("SELECT empno, ename, job, sal FROM emp");
+             ResultSet rs = pstmt.executeQuery()) {
+
             while (rs.next()) {
                 shw1013DTO dto = new shw1013DTO();
                 dto.setEmpno(rs.getInt("empno"));
@@ -37,23 +34,11 @@ public class shw1013DAO {
                 dto.setSal(rs.getDouble("sal"));
                 list.add(dto);
             }
-        } catch (Exception e) {
-            System.out.println("데이터베이스 조회 중 오류 발생: " + e.getMessage());
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-        return list;
+        return list; // 실패 시 빈 리스트 반환
     }
 
-	public List<shw1013DTO> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

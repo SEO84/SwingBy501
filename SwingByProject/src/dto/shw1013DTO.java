@@ -1,24 +1,26 @@
 package dto;
 
 public class shw1013DTO {
-    private int empno;         // 사원 번호
-    private String ename;      // 사원 이름
-    private String job;        // 직무
-    private double sal;        // 급여
+    private int empno;
+    private String ename;
+    private String job;
+    private double sal;
 
     // 기본 생성자
     public shw1013DTO() {
+        super();
     }
 
-    // 모든 필드를 포함한 생성자
+    // 매개변수가 있는 생성자
     public shw1013DTO(int empno, String ename, String job, double sal) {
+        super();
         this.empno = empno;
         this.ename = ename;
         this.job = job;
         this.sal = sal;
     }
 
-    // Getter 및 Setter 메서드
+    // Getter 및 Setter
     public int getEmpno() {
         return empno;
     }
@@ -53,11 +55,6 @@ public class shw1013DTO {
 
     @Override
     public String toString() {
-        return "shw1013DTO{" +
-               "empno=" + empno +
-               ", ename='" + ename + '\'' +
-               ", job='" + job + '\'' +
-               ", sal=" + sal +
-               '}';
+        return "shw1013DTO [empno=" + empno + ", ename=" + ename + ", job=" + job + ", sal=" + sal + "]";
     }
 }
