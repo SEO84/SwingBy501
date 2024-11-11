@@ -15,3 +15,4 @@ public class pkhmain_0827 {
 		SwingUtilities.invokeLater(() -> new pkh0827gui());
 	}
 }
+

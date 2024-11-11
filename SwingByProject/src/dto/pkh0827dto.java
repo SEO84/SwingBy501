@@ -10,6 +10,7 @@ public class pkh0827dto {
 	private double losal;
 	private double hisal;
 
+	
 	// Getters and Setters
 	public String getEname() {
 		return ename;

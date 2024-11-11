@@ -15,6 +15,7 @@ public class pkh0827dao {
 	private static final String JDBC_USER = "scott";
 	private static final String JDBC_PASSWORD = "tiger";
 	private static final String JDBC_DRIVER = "oracle.jdbc.OracleDriver"; // JDBC 드라이버 클래스
+	
 
 	// SQL 쿼리
 	private static final String SELECT_EMP_DEPT_SALGRADE_QUERY = "SELECT e.ename, e.job, e.sal, d.dname, d.loc, s.grade, s.losal, s.hisal "
