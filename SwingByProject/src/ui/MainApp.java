@@ -2,12 +2,9 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import Jpanel.Kjh0313Jpanel;
 
 public class MainApp extends JFrame {
 	
@@ -16,6 +13,13 @@ public class MainApp extends JFrame {
 		JButton button = new JButton(label);
 		if (l != null) button.addActionListener(l);
 		return button;
+	}
+
+	private void setPanel(JPanel panel) {
+			if (current != null) MainApp.this.remove(current);
+			MainApp.this.add(current = panel, BorderLayout.CENTER);
+			MainApp.this.revalidate();
+			MainApp.this.repaint();
 	}
 	
 	public MainApp() {
@@ -28,39 +32,29 @@ public class MainApp extends JFrame {
 		JPanel buttons = new JPanel();
 		
 		buttons.add(button("원종호", l -> {
-			if (current != null) MainApp.this.remove(current);
-			MainApp.this.add(current = new Wjh0324Panel(), BorderLayout.CENTER);
-            MainApp.this.revalidate();
-            MainApp.this.repaint();
+			setPanel(new Wjh0324Panel());
 		}));
 		
 		buttons.add(button("서현우", l -> {
-			if (current != null) MainApp.this.remove(current);
-			MainApp.this.add(current = new shw1013Panel(), BorderLayout.CENTER);
-            MainApp.this.revalidate();
-            MainApp.this.repaint();
+			setPanel(new shw1013Panel());
 		}));
-		buttons.add(button("이상화", null));
+		buttons.add(button("이상화", l -> {
+			setPanel(new Lsh1208Panel());
+		}));
 		buttons.add(button("김재한", l -> {
-			if (current != null) MainApp.this.remove(current);
-			MainApp.this.add(current = new Kjh0313Jpanel(), BorderLayout.CENTER);
-            MainApp.this.revalidate();
-            MainApp.this.repaint();
+			setPanel(new Kjh0313Jpanel());
 		}));
 		buttons.add(button("박광호", l -> {
-			if (current != null) MainApp.this.remove(current);
-			MainApp.this.add(current = new Pkh0827Panel(), BorderLayout.CENTER);
-            MainApp.this.revalidate();
-            MainApp.this.repaint();
+			setPanel(new Pkh0827Panel());
 		}));
 		
 		
 		buttons.setLayout(new FlowLayout());
-		
 		this.add(buttons, BorderLayout.NORTH);
+
+		this.setTitle("세계 최고의 데이터베이스 프로그램!!!!!!!!!!");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		
 		
 	}
 
