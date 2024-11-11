@@ -19,7 +19,6 @@ public class pkh0827gui extends JFrame {
 	private JScrollPane scrollPane;
 	private pkh0827dao employeeDAO;
 
-	
 	public pkh0827gui() {
 		// JFrame 설정
 		setTitle("Employee Data");
