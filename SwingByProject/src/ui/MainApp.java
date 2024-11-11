@@ -31,6 +31,12 @@ public class MainApp extends JFrame {
             MainApp.this.repaint();
 		}));
 		
+		buttons.add(button("서현우", null));
+		buttons.add(button("이상화", null));
+		buttons.add(button("김재한", null));
+		buttons.add(button("박광호", null));
+		
+		
 		buttons.setLayout(new FlowLayout());
 		
 		this.add(buttons, BorderLayout.NORTH);
