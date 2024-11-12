@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import boardUI.Top5UI;
+import boardUI.kjh0313boardUI;
+
 public class MainApp extends JFrame {
 	
 	private JPanel current;
@@ -34,7 +37,6 @@ public class MainApp extends JFrame {
 		buttons.add(button("원종호", l -> {
 			setPanel(new Wjh0324Panel());
 		}));
-		
 		buttons.add(button("서현우", l -> {
 			setPanel(new shw1013Panel());
 		}));
@@ -47,7 +49,12 @@ public class MainApp extends JFrame {
 		buttons.add(button("박광호", l -> {
 			setPanel(new Pkh0827Panel());
 		}));
-		
+		buttons.add(button("Top5", l -> {
+			setPanel(new Top5UI());
+		}));
+		buttons.add(button("게시판!", l -> {
+			setPanel(new kjh0313boardUI());
+		}));
 		
 		buttons.setLayout(new FlowLayout());
 		this.add(buttons, BorderLayout.NORTH);
