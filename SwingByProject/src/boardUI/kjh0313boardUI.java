@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+
+import boardDAO.PostDAO;
 import boardDAO.kjh0313boardDAO;
 import boardDTO.shw1013BoardDTO;
 
@@ -40,15 +42,19 @@ public class kjh0313boardUI extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = boardTable.getSelectedRow(); // 클릭된 행의 인덱스를 가져옴
                 if (selectedRow != -1) {
-                    Object boardNo = tableModel.getValueAt(selectedRow, 0);
-                    Object title = tableModel.getValueAt(selectedRow, 1);
-                    Object writer = tableModel.getValueAt(selectedRow, 2);
+                    // 선택된 행의 게시물 번호 가져오기
+                    int boardNo = (int) tableModel.getValueAt(selectedRow, 0);
 
-                    // 더미 기능: 클릭된 데이터 출력
-                    JOptionPane.showMessageDialog(null, 
-                        "선택된 행의 정보:\n번호: " + boardNo + "\n제목: " + title + "\n작성자: " + writer,
-                        "행 선택",
-                        JOptionPane.INFORMATION_MESSAGE);
+                    // PostDAO를 사용하여 boardNo에 해당하는 게시물 데이터를 조회하고 PostWindow로 표시
+                    PostDAO dao = new PostDAO();
+                    List<shw1013BoardDTO> boardList = dao.postView(boardNo);
+
+                    if (!boardList.isEmpty()) {
+                        shw1013BoardDTO post = boardList.get(0);
+                        new PostWindow(post); // PostWindow 생성자에 게시물 데이터 전달
+                    } else {
+                        JOptionPane.showMessageDialog(null, "해당 게시물을 찾을 수 없습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
