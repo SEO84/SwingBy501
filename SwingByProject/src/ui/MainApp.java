@@ -1,4 +1,6 @@
 package ui;
+import boardUI.Top5UI;
+import boardUI.kjh0313boardUI;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -6,12 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import boardUI.Top5UI;
-import boardUI.kjh0313boardUI;
-
 public class MainApp extends JFrame {
 	
 	private JPanel current;
+	
 	private static JButton button(String label, ActionListener l) {
 		JButton button = new JButton(label);
 		if (l != null) button.addActionListener(l);

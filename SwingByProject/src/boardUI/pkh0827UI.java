@@ -1,12 +1,11 @@
 package boardUI;
 
-import boardDTO.shw1013BoardDTO;
 import boardDAO.pkh027boardDAO;
-
-import javax.swing.*;
+import boardDTO.shw1013BoardDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import javax.swing.*;
 
 public class pkh0827UI {
 	private JFrame frame;
@@ -17,8 +16,10 @@ public class pkh0827UI {
 	public pkh0827UI() {
 		// UI 설정
 		frame = new JFrame("게시글 작성");
-		frame.setBounds(100, 100, 400, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(600, 400);
+		frame.setLocationRelativeTo(null);
+		// frame.setBounds(100, 100, 400, 400);
+		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblTitle = new JLabel("제목:");
@@ -96,8 +97,8 @@ public class pkh0827UI {
 		frame.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		// UI 실행
-		new pkh0827UI();
-	}
+	// public static void main(String[] args) {
+	// 	// UI 실행
+	// 	new pkh0827UI();
+	// }
 }

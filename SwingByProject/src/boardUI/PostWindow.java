@@ -1,10 +1,8 @@
 package boardUI;
 
-import javax.swing.*;
-import boardDAO.PostDAO;
 import boardDTO.shw1013BoardDTO;
 import java.awt.*;
-import java.util.ArrayList;
+import javax.swing.*;
 
 public class PostWindow extends JFrame {
     private JTextField titleField; // 제목을 표시할 텍스트 필드
@@ -16,8 +14,8 @@ public class PostWindow extends JFrame {
 
     public PostWindow(shw1013BoardDTO post) {
         setTitle("게시물 상세보기");
-        setSize(400, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 500);
+        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
