@@ -1,16 +1,32 @@
 package boardUI;
 
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import boardDAO.PostDAO;
+import boardDAO.kjh0313boardDAO;
+import boardDTO.shw1013BoardDTO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import boardDAO.kjh0313boardDAO;
-import boardDTO.shw1013BoardDTO;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class kjh0313boardUI extends JPanel {
+    
+    static class ImmutableTableModel extends DefaultTableModel {
+
+        public ImmutableTableModel(String[] colNames, int rowCount) {
+            super(colNames, rowCount);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+        
+    }
+
+    private String[] columnNames = {"번호", "제목", "작성자"};
     private JTable boardTable;
     private DefaultTableModel tableModel;
 
@@ -18,9 +34,9 @@ public class kjh0313boardUI extends JPanel {
         setLayout(new BorderLayout());
 
         // 테이블 모델 설정 (컬럼명 지정)
-        String[] columnNames = {"번호", "제목", "작성자"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new ImmutableTableModel(columnNames, 0);
         boardTable = new JTable(tableModel);
+        
 
         // 스크롤 패널에 테이블 추가
         JScrollPane scrollPane = new JScrollPane(boardTable);
@@ -28,8 +44,17 @@ public class kjh0313boardUI extends JPanel {
         
         // 버튼 패널 생성
         JPanel buttonPanel = new JPanel();
-        JButton dummyButton = new JButton("더미 버튼");
-        buttonPanel.add(dummyButton);
+        JButton refreshButton = new JButton("새로고침");
+        refreshButton.addActionListener(l -> loadData());
+        buttonPanel.add(refreshButton);
+
+        JButton postButton = new JButton("글쓰기");
+        postButton.addActionListener(l -> new pkh0827UI());
+        buttonPanel.add(postButton);
+
+        JButton unregisterButton = new JButton("회원탈퇴");
+        unregisterButton.addActionListener(l -> new shw1013DeleteUI());
+        buttonPanel.add(unregisterButton);
 
         // 버튼 패널을 하단에 추가
         add(buttonPanel, BorderLayout.SOUTH);
@@ -40,15 +65,19 @@ public class kjh0313boardUI extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = boardTable.getSelectedRow(); // 클릭된 행의 인덱스를 가져옴
                 if (selectedRow != -1) {
-                    Object boardNo = tableModel.getValueAt(selectedRow, 0);
-                    Object title = tableModel.getValueAt(selectedRow, 1);
-                    Object writer = tableModel.getValueAt(selectedRow, 2);
+                    // 선택된 행의 게시물 번호 가져오기
+                    int boardNo = (int) tableModel.getValueAt(selectedRow, 0);
 
-                    // 더미 기능: 클릭된 데이터 출력
-                    JOptionPane.showMessageDialog(null, 
-                        "선택된 행의 정보:\n번호: " + boardNo + "\n제목: " + title + "\n작성자: " + writer,
-                        "행 선택",
-                        JOptionPane.INFORMATION_MESSAGE);
+                    // PostDAO를 사용하여 boardNo에 해당하는 게시물 데이터를 조회하고 PostWindow로 표시
+                    PostDAO dao = new PostDAO();
+                    List<shw1013BoardDTO> boardList = dao.postView(boardNo);
+
+                    if (!boardList.isEmpty()) {
+                        shw1013BoardDTO post = boardList.get(0);
+                        new PostWindow(post); // PostWindow 생성자에 게시물 데이터 전달
+                    } else {
+                        JOptionPane.showMessageDialog(null, "해당 게시물을 찾을 수 없습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
@@ -61,6 +90,8 @@ public class kjh0313boardUI extends JPanel {
         kjh0313boardDAO dao = new kjh0313boardDAO();
         List<shw1013BoardDTO> boardList = dao.getBoardList();
 
+        tableModel = new ImmutableTableModel(columnNames, 0);
+
         for (shw1013BoardDTO board : boardList) {
             Object[] rowData = {
                 board.getBoardNo(),
@@ -69,14 +100,6 @@ public class kjh0313boardUI extends JPanel {
             };
             tableModel.addRow(rowData);
         }
-    }
-
-    // 메인 메서드 (단독 실행을 위한 테스트)
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("게시판 목록");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
-        frame.add(new kjh0313boardUI());
-        frame.setVisible(true);
+        boardTable.setModel(tableModel);
     }
 }

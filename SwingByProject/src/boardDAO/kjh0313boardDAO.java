@@ -1,9 +1,9 @@
 package boardDAO;
 
-import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
 import boardDTO.shw1013BoardDTO;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class kjh0313boardDAO {
     private String driver = "oracle.jdbc.driver.OracleDriver";
