@@ -1,10 +1,9 @@
 package dao;
 
-import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
-
 import dto.Kjh0313DTO;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Kjh0313DAO {
 	String driver = "oracle.jdbc.driver.OracleDriver"; // 12행 ~ 15행 데이터베이스 접속을 위한 4가지 정보를 String 변수에 저장.
@@ -59,10 +58,6 @@ public class Kjh0313DAO {
 			
 		}
 		return null;
-	}
-	public static void main(String[] args) {
-		Object result = new Kjh0313DAO().get();
-		System.out.println(result);
 	}
 	
 }

@@ -1,28 +1,21 @@
 package ui;
 import boardUI.Top5UI;
+import boardUI.Wjh0324WholeEmp2Panel;
 import boardUI.kjh0313boardUI;
+import common.UI;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainApp extends JFrame {
+		private JPanel current;
 	
-	private JPanel current;
-	
-	private static JButton button(String label, ActionListener l) {
-		JButton button = new JButton(label);
-		if (l != null) button.addActionListener(l);
-		return button;
-	}
-
 	private void setPanel(JPanel panel) {
-			if (current != null) MainApp.this.remove(current);
-			MainApp.this.add(current = panel, BorderLayout.CENTER);
-			MainApp.this.revalidate();
-			MainApp.this.repaint();
+			if (current != null) this.remove(current);
+			this.add(current = panel, BorderLayout.CENTER);
+			this.revalidate();
+			this.repaint();
 	}
 	
 	public MainApp() {
@@ -34,27 +27,14 @@ public class MainApp extends JFrame {
 		
 		JPanel buttons = new JPanel();
 		
-		buttons.add(button("원종호", l -> {
-			setPanel(new Wjh0324Panel());
-		}));
-		buttons.add(button("서현우", l -> {
-			setPanel(new shw1013Panel());
-		}));
-		buttons.add(button("이상화", l -> {
-			setPanel(new Lsh1208Panel());
-		}));
-		buttons.add(button("김재한", l -> {
-			setPanel(new Kjh0313Jpanel());
-		}));
-		buttons.add(button("박광호", l -> {
-			setPanel(new Pkh0827Panel());
-		}));
-		buttons.add(button("Top5", l -> {
-			setPanel(new Top5UI());
-		}));
-		buttons.add(button("게시판!", l -> {
-			setPanel(new kjh0313boardUI());
-		}));
+
+		buttons.add(UI.button("서현우", l -> setPanel(new shw1013Panel())));
+		buttons.add(UI.button("이상화", l -> setPanel(new Lsh1208Panel())));
+		buttons.add(UI.button("김재한", l -> setPanel(new Kjh0313Jpanel())));
+		buttons.add(UI.button("박광호", l -> setPanel(new Pkh0827Panel())));
+		buttons.add(UI.button("Top5", l -> setPanel(new Top5UI())));
+		buttons.add(UI.button("회원", l -> setPanel(new Wjh0324WholeEmp2Panel())));
+		buttons.add(UI.button("게시판", l -> setPanel(new kjh0313boardUI())));
 		
 		buttons.setLayout(new FlowLayout());
 		this.add(buttons, BorderLayout.NORTH);

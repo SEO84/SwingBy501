@@ -96,9 +96,4 @@ public class pkh0827UI {
 		// 화면 보이기
 		frame.setVisible(true);
 	}
-
-	// public static void main(String[] args) {
-	// 	// UI 실행
-	// 	new pkh0827UI();
-	// }
 }

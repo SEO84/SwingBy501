@@ -1,6 +1,7 @@
 package service;
 
 import dao.EmpDAO;
+import java.sql.Date;
 
 public class EmpUpdateService {
 
@@ -10,7 +11,7 @@ public class EmpUpdateService {
         this.empDAO = new EmpDAO();
     }
 
-    public boolean updateEmployee(int empNo, String ename, String job, int mgr, String hiredate, double sal, double comm, int deptno) {
+    public boolean updateEmployee(int empNo, String ename, String job, Integer mgr, Date hiredate, Double sal, Double comm, Integer deptno) {
         return empDAO.updateEmployee(empNo, ename, job, mgr, hiredate, sal, comm, deptno);
     }
 }

@@ -2,9 +2,6 @@ package boardDTO;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 public class Wjh0324Emp2DTO {
 	public final int empno;
@@ -12,8 +9,8 @@ public class Wjh0324Emp2DTO {
 	public final String job;
 	public final Integer mgr;
 	public final Date hireDate;
-	public final Integer sal;
-	public final Integer comm;
+	public final Double sal;
+	public final Double comm;
 	public final Integer deptno;
 	
 	public Wjh0324Emp2DTO(
@@ -22,8 +19,8 @@ public class Wjh0324Emp2DTO {
 		String job,
 		Integer mgr,
 		Date hireDate,
-		Integer sal,
-		Integer comm,
+		Double sal,
+		Double comm,
 		Integer deptno
 		) {
 		this.empno = empno;

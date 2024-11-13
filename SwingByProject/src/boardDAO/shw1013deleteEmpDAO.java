@@ -57,17 +57,3 @@ public class shw1013deleteEmpDAO {
         }
     }
 }
-//
-//    // 테스트용 main 메서드
-//    public static void main(String[] args) {
-//        shw1013deleteEmpDAO dao = new shw1013deleteEmpDAO();
-//        int empNoToDelete = 101; // 삭제할 empno
-//
-//        boolean isDeleted = dao.deleteEmployee(empNoToDelete);
-//        if (isDeleted) {
-//            System.out.println("EmpNo " + empNoToDelete + " 삭제 성공!");
-//        } else {
-//            System.out.println("EmpNo " + empNoToDelete + " 삭제 실패! 존재하지 않는 EmpNo입니다.");
-//        }
-//    }
-//}
