@@ -1,18 +1,32 @@
 package boardUI;
 
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import boardDAO.PostDAO;
+import boardDAO.kjh0313boardDAO;
+import boardDTO.shw1013BoardDTO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-
-import boardDAO.PostDAO;
-import boardDAO.kjh0313boardDAO;
-import boardDTO.shw1013BoardDTO;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class kjh0313boardUI extends JPanel {
+    
+    static class ImmutableTableModel extends DefaultTableModel {
+
+        public ImmutableTableModel(String[] colNames, int rowCount) {
+            super(colNames, rowCount);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+        
+    }
+
+    private String[] columnNames = {"번호", "제목", "작성자"};
     private JTable boardTable;
     private DefaultTableModel tableModel;
 
@@ -20,9 +34,9 @@ public class kjh0313boardUI extends JPanel {
         setLayout(new BorderLayout());
 
         // 테이블 모델 설정 (컬럼명 지정)
-        String[] columnNames = {"번호", "제목", "작성자"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new ImmutableTableModel(columnNames, 0);
         boardTable = new JTable(tableModel);
+        
 
         // 스크롤 패널에 테이블 추가
         JScrollPane scrollPane = new JScrollPane(boardTable);
@@ -30,8 +44,17 @@ public class kjh0313boardUI extends JPanel {
         
         // 버튼 패널 생성
         JPanel buttonPanel = new JPanel();
-        JButton dummyButton = new JButton("더미 버튼");
-        buttonPanel.add(dummyButton);
+        JButton refreshButton = new JButton("새로고침");
+        refreshButton.addActionListener(l -> loadData());
+        buttonPanel.add(refreshButton);
+
+        JButton postButton = new JButton("글쓰기");
+        postButton.addActionListener(l -> new pkh0827UI());
+        buttonPanel.add(postButton);
+
+        JButton unregisterButton = new JButton("회원탈퇴");
+        unregisterButton.addActionListener(l -> new shw1013DeleteUI());
+        buttonPanel.add(unregisterButton);
 
         // 버튼 패널을 하단에 추가
         add(buttonPanel, BorderLayout.SOUTH);
@@ -67,6 +90,8 @@ public class kjh0313boardUI extends JPanel {
         kjh0313boardDAO dao = new kjh0313boardDAO();
         List<shw1013BoardDTO> boardList = dao.getBoardList();
 
+        tableModel = new ImmutableTableModel(columnNames, 0);
+
         for (shw1013BoardDTO board : boardList) {
             Object[] rowData = {
                 board.getBoardNo(),
@@ -75,14 +100,6 @@ public class kjh0313boardUI extends JPanel {
             };
             tableModel.addRow(rowData);
         }
-    }
-
-    // 메인 메서드 (단독 실행을 위한 테스트)
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("게시판 목록");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
-        frame.add(new kjh0313boardUI());
-        frame.setVisible(true);
+        boardTable.setModel(tableModel);
     }
 }

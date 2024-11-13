@@ -1,4 +1,6 @@
 package ui;
+import boardUI.Top5UI;
+import boardUI.kjh0313boardUI;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -9,6 +11,7 @@ import javax.swing.JPanel;
 public class MainApp extends JFrame {
 	
 	private JPanel current;
+	
 	private static JButton button(String label, ActionListener l) {
 		JButton button = new JButton(label);
 		if (l != null) button.addActionListener(l);
@@ -34,7 +37,6 @@ public class MainApp extends JFrame {
 		buttons.add(button("원종호", l -> {
 			setPanel(new Wjh0324Panel());
 		}));
-		
 		buttons.add(button("서현우", l -> {
 			setPanel(new shw1013Panel());
 		}));
@@ -47,7 +49,12 @@ public class MainApp extends JFrame {
 		buttons.add(button("박광호", l -> {
 			setPanel(new Pkh0827Panel());
 		}));
-		
+		buttons.add(button("Top5", l -> {
+			setPanel(new Top5UI());
+		}));
+		buttons.add(button("게시판!", l -> {
+			setPanel(new kjh0313boardUI());
+		}));
 		
 		buttons.setLayout(new FlowLayout());
 		this.add(buttons, BorderLayout.NORTH);
