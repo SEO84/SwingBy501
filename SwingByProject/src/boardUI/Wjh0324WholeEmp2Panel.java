@@ -69,7 +69,9 @@ public class Wjh0324WholeEmp2Panel extends JPanel {
 			// win.setLocationRelativeTo(this);
 			// win.setVisible(true);
 			// win.addWindowListener(reloader);
-			JFrame win = new SignupFrame("사원정보 수정");
+			SignupFrame win = new SignupFrame("사원정보 수정");
+			win.setEditMode(true);
+			win.loadEmployeeData( emp2.empno, emp2.ename, emp2.job, emp2.mgr, emp2.hireDate, emp2.sal, emp2.comm, emp2.deptno );
 			win.setLocationRelativeTo(this);
 			win.addWindowListener(reloader);
 			win.setVisible(true);
